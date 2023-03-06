@@ -19,7 +19,9 @@ function App() {
     <>
     <div>
       <h1>Todo List</h1>
-    </div><ul>
+    </div>
+    <hr />
+    <ul>
         {myList.map(function (item) {
           return <li key={item.objectID}>
             <span>
@@ -27,8 +29,8 @@ function App() {
             </span>
           </li>;
         })}
-      </ul>
-      </>
+    </ul>
+    </>
   )
 }
 
