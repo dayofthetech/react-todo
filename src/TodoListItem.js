@@ -4,7 +4,7 @@ export default function TodoListItem({ todo }) {
   return (
     <li>
         <span>
-            {todo}
+            {todo.title}
         </span>
     </li>
   )
