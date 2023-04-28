@@ -3,30 +3,46 @@ import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm';
 
 
+
 function App() {
 
   const [todoList, setTodoList] = useState([])
 
   const [isLoading, setIsLoading] = useState(true)
 
-  //first useEffect
-  useEffect(() => {
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({ data : {todoList : JSON.parse(localStorage.getItem("savedTodoList"))}})
-      },2000)
-    }).then((result) => {
-      setTodoList([...result.data.todoList])
-      setIsLoading(false)
-    })
-  }, [] )
-
-  //second useEffect
-  useEffect(() => {
-    if (!isLoading) {
-      localStorage.setItem("savedTodoList", JSON.stringify(todoList))
+  //async function
+  const fetchData = async() => {
+    const options = {
+      method:'GET',
+      headers:{
+        Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`
+      }
     }
-  }, [todoList, isLoading])
+    const url = `"https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}\"`
+    console.log(options);
+
+    //after options try and catch block below
+    try{
+      const response = await fetch(
+        url, options
+      )
+      console.log(response)
+      if(!response.ok) {
+        const message = `Error: ${response.status}`;
+        throw new Error(message);
+      }
+      //data variable that awaits a parsed version
+      const data = await response.json();
+      console.log(data)
+    } catch {
+
+    }
+  }
+
+  //useEffect with asycn
+  useEffect(() => {
+    fetchData()
+  })
 
   function addTodo(newTodo) {
     setTodoList([...todoList, newTodo])
