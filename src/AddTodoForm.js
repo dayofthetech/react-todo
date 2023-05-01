@@ -16,7 +16,7 @@ export default function AddTodoForm( {onAddTodo} ) {
 
     onAddTodo({
       title: todoTitle,
-      id: Date.now(),
+      // id: Date.now(), <= ixs mention no need for Date.now
     });
     setTodotitle("")
   }
