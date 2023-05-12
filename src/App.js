@@ -74,20 +74,27 @@ function App() {
     });
   }
 
-    return (
-      <>
-      <div>
-        <h1>Todo List</h1>
-      </div>
-      <hr />
-      <AddTodoForm onAddTodo={addTodo} />
-      {isLoading ? (
+  return (
+    <BrowserRouter>
+    <div>
+      <Routes>
+        <Route path='/' element={
+          <>
+            <h1>Todo List</h1>
+            <hr />
+            <AddTodoForm onAddTodo={addTodo} />
+            {isLoading ? (
             <p> Loading ... </p>
             ) : (
               <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
             )}
-      </>
-    )
+          </>
+        }/>
+      <Route path='/new' element={<h1>New Todo List</h1>}/>
+      </Routes>
+    </div>
+    </BrowserRouter>
+  )
   }
 
   export default App;
