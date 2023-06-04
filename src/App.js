@@ -3,11 +3,25 @@ import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 import Airtable from 'airtable';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { Container } from './components/styles/Container.styled'
+import GlobalStyles from './components/styles/Global';
+import {ThemeProvider} from "styled-components";
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 
 
 const base = new Airtable({ apiKey: process.env.REACT_APP_AIRTABLE_API_KEY}).
   base(process.env.REACT_APP_AIRTABLE_BASE_ID);
+
+const theme = {
+  colors: {
+    header: '#ebfbff',
+    body: '#ebfbff',
+    footer: '#003333',
+  },
+  mobile: '768',
+}
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -76,23 +90,26 @@ function App() {
 
   return (
     <BrowserRouter>
-    <div>
       <Routes>
         <Route path='/' element={
+          <ThemeProvider theme={theme}>
           <>
-            <h1>Todo List</h1>
-            <hr />
+            <GlobalStyles />
+            <Header />
+            <Container>
             <AddTodoForm onAddTodo={addTodo} />
             {isLoading ? (
             <p> Loading ... </p>
             ) : (
               <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
             )}
+            </Container>
+            <Footer />
           </>
+          </ThemeProvider>
         }/>
       <Route path='/new' element={<h1>New Todo List</h1>}/>
       </Routes>
-    </div>
     </BrowserRouter>
   )
   }

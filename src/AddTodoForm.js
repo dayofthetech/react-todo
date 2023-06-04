@@ -1,5 +1,6 @@
 import React, {useRef} from 'react'
 import InputWithLabel from './InputWithLabel';
+import ThemedButton from './components/styles/Button.styled';
 
 export default function AddTodoForm( {onAddTodo} ) {
 
@@ -27,7 +28,9 @@ export default function AddTodoForm( {onAddTodo} ) {
             <InputWithLabel id='todoTitle' value={todoTitle} onInputChange={handleTitleChange}>
             Title
             </InputWithLabel>
-            <button>Add </button>
+            <ThemedButton theme="addTheme">
+              Add
+            </ThemedButton>
         </form>
     </div>
   )

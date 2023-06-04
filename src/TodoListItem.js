@@ -1,12 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { StyleTodoListItem } from './components/styles/TodoListItem.styled';
+import ThemedButton from './components/styles/Button.styled';
 
 export default function TodoListItem({ todo, onRemoveTodo }) {
+  const handleRemoveClick = () => {
+    onRemoveTodo(todo.id);
+  };
+
   return (
-    <li>
-        <span>
-            {todo.title}
-            <button type='button' onClick={() => onRemoveTodo(todo.id)}>Remove</button>
-        </span>
-    </li>
-  )
+    <StyleTodoListItem>
+        {todo.title}
+        <ThemedButton theme="removeTheme" onClick={handleRemoveClick}>
+          Remove
+        </ThemedButton>
+    </StyleTodoListItem>
+  );
 }
