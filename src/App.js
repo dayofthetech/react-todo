@@ -30,6 +30,7 @@ function App() {
   // useEffect for airtable only
   //  this one display the items into the app
   useEffect(() => {
+
     const newTodoList = [];
     base("Default")
       .select({ view: "Grid view" })
@@ -48,9 +49,9 @@ function App() {
 
         //This saves locally
         localStorage.setItem("savedTodoList", JSON.stringify(newTodoList));
+
       });
   }, []);
-
 
   //second useEffect
   useEffect(() => {
@@ -69,7 +70,11 @@ function App() {
         console.error(err);
         return;
       }
+      // Request new records when Add is clicked
       records.forEach(function (record) {
+        const createdTodo = { id: record.id, title: record.get('title') };
+        //Updates the state and makes the request
+        setTodoList((prevTodoList) => [...prevTodoList, createdTodo]);
         console.log(record.getId());
         console.log(record.get('title'));
       });
