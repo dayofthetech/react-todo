@@ -1,4 +1,5 @@
 import React, {useRef, useEffect} from 'react'
+import PropTypes from 'prop-types'
 
 export default function InputWithLabel({id, value, onInputChange, children}) {
     const inputRef = useRef(null);
@@ -20,4 +21,11 @@ export default function InputWithLabel({id, value, onInputChange, children}) {
     />
     </>
   )
+}
+
+InputWithLabel.propTypes = {
+  id: PropTypes.string,
+  value: PropTypes.string,
+  onInputChange: PropTypes.func,
+  children: PropTypes.string,
 }

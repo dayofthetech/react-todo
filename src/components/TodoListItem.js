@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleTodoListItem } from './components/styles/TodoListItem.styled';
-import ThemedButton from './components/styles/Button.styled';
+import { StyleTodoListItem } from './styles/TodoListItem.styled';
+import ThemedButton from './styles/Button.styled';
+import PropTypes from 'prop-types';
 
 export default function TodoListItem({ todo, onRemoveTodo }) {
   const handleRemoveClick = () => {
@@ -15,4 +16,9 @@ export default function TodoListItem({ todo, onRemoveTodo }) {
         </ThemedButton>
     </StyleTodoListItem>
   );
+}
+
+TodoListItem.propTypes = {
+  todo: PropTypes.object,
+  onRemoveTodo: PropTypes.func,
 }

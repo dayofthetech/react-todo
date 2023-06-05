@@ -1,6 +1,7 @@
 import React, {useRef} from 'react'
 import InputWithLabel from './InputWithLabel';
-import ThemedButton from './components/styles/Button.styled';
+import ThemedButton from './styles/Button.styled';
+import PropTypes from 'prop-types';
 
 export default function AddTodoForm( {onAddTodo} ) {
 
@@ -34,4 +35,8 @@ export default function AddTodoForm( {onAddTodo} ) {
         </form>
     </div>
   )
+}
+
+AddTodoForm.propTypes = {
+  onAddTodo: PropTypes.func,
 }

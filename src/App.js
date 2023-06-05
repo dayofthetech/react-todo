@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import TodoList from './TodoList';
-import AddTodoForm from './AddTodoForm';
+import TodoList from './components/TodoList';
+import AddTodoForm from './components/AddTodoForm';
 import Airtable from 'airtable';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { Container } from './components/styles/Container.styled'
@@ -49,7 +49,7 @@ function App() {
         //This saves locally
         localStorage.setItem("savedTodoList", JSON.stringify(newTodoList));
       });
-  }, [todoList]);
+  }, []);
 
 
   //second useEffect
