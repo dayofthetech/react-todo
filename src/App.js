@@ -52,6 +52,7 @@ function App() {
 
       });
   }, []);
+  // If I [todoList] there will be a loop bug requesting data to API
 
   //second useEffect
   useEffect(() => {
