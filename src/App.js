@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import TodoList from './components/TodoList';
-import AddTodoForm from './components/AddTodoForm';
-import Airtable from 'airtable';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { Container } from './components/styles/Container.styled'
 import GlobalStyles from './components/styles/Global';
 import {ThemeProvider} from "styled-components";
 import Header from './components/Header';
 import Footer from './components/Footer';
+import TodoContainer from './components/TodoContainer';
 
-
-
-const base = new Airtable({ apiKey: process.env.REACT_APP_AIRTABLE_API_KEY}).
-  base(process.env.REACT_APP_AIRTABLE_BASE_ID);
 
 const theme = {
   colors: {
@@ -24,76 +18,6 @@ const theme = {
 }
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect for airtable only
-  //  this one display the items into the app
-  useEffect(() => {
-
-    const newTodoList = [];
-    base("Default")
-      .select({ view: "Grid view" })
-      .eachPage((records, fetchNextPage) => {
-        records.forEach((record) => {
-          newTodoList.push({ id: record.id, title: record.get("title") });
-        });
-        fetchNextPage();
-      }, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        setTodoList(newTodoList);
-        setIsLoading(false);
-
-        //This saves locally
-        localStorage.setItem("savedTodoList", JSON.stringify(newTodoList));
-
-      });
-  }, []);
-  // If I [todoList] there will be a loop bug requesting data to API
-
-  //second useEffect
-  useEffect(() => {
-    if (!isLoading) {
-      localStorage.setItem("savedTodoList", JSON.stringify(todoList))
-    }
-  }, [todoList, isLoading])
-
-
-  function addTodo(newTodo) {
-    base('Default').create([{
-      fields:
-         newTodo
-    }], function(err, records) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      // Request new records when Add is clicked
-      records.forEach(function (record) {
-        const createdTodo = { id: record.id, title: record.get('title') };
-        //Updates the state and makes the request
-        setTodoList((prevTodoList) => [...prevTodoList, createdTodo]);
-        console.log(record.getId());
-        console.log(record.get('title'));
-      });
-    });
-  }
-
-  function removeTodo(id) {
-    base('Default').destroy([id], function(err, deletedRecords) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log('Deleted', deletedRecords.length, 'records');
-      const newTodoList = todoList.filter(todo => todo.id !== id);
-      setTodoList(newTodoList);
-    });
-  }
-
   return (
     <BrowserRouter>
       <Routes>
@@ -103,12 +27,7 @@ function App() {
             <GlobalStyles />
             <Header />
             <Container>
-            <AddTodoForm onAddTodo={addTodo} />
-            {isLoading ? (
-            <p> Loading ... </p>
-            ) : (
-              <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
-            )}
+              <TodoContainer />
             </Container>
             <Footer />
           </>

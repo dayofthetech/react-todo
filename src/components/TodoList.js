@@ -3,12 +3,18 @@ import TodoListItem from './TodoListItem';
 import PropTypes from 'prop-types';
 
 
-export default function TodoList({ todoList, onRemoveTodo} ) {
+export default function TodoList({ todoList, onRemoveTodo, category} ) {
+  // console.log(category);
   return (
     <div>
         <ul>
           {todoList.map(todo =>
-            <TodoListItem todo={todo} key={todo.id} onRemoveTodo={onRemoveTodo}/>
+            <TodoListItem
+            todo={todo}
+            key={todo.id}
+            onRemoveTodo={onRemoveTodo}
+            category={category}
+            />
           )}
         </ul>
     </div>

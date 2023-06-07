@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import img from '../../assets/imagesampleone.jpg'
 
 export const StyleTodoListItem = styled.li`
