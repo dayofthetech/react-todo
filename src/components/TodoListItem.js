@@ -4,7 +4,10 @@ import ThemedButton from './styles/Button.styled';
 import PropTypes from 'prop-types';
 import DropdownMenu from './DropdownMenu';
 
-export default function TodoListItem({ todo, onRemoveTodo, category }) {
+export default function TodoListItem({ todo, onRemoveTodo, category}) {
+
+  // This gets me the category in the array
+  // console.log(todo.category);
 
   const handleRemoveClick = () => {
     onRemoveTodo(todo.id);
@@ -18,7 +21,7 @@ export default function TodoListItem({ todo, onRemoveTodo, category }) {
         </ThemedButton>
         {/* I can add dropwon here but is taking styling from
         StyleTodoListItem */}
-        <DropdownMenu value={category}>
+        <DropdownMenu category={todo.category}>
 
         </DropdownMenu>
     </StyleTodoListItem>

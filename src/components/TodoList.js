@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 export default function TodoList({ todoList, onRemoveTodo, category} ) {
-  // console.log(category);
+
   return (
     <div>
         <ul>
