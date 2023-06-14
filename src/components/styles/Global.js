@@ -1,5 +1,7 @@
 import {createGlobalStyle} from "styled-components"
 
+
+
 const GlobalStyles = createGlobalStyle`
 
     * {
@@ -12,7 +14,8 @@ const GlobalStyles = createGlobalStyle`
         background-color: ${({ theme }) => theme.colors.body};
         ${'' /* background: #fff; */}
         color: hsl(192, 100%, 9%);
-        font-family: 'Poppins', sans-serif;
+        ${'' /* To add font-family > index.html */}
+        font-family:'Roboto Mono', monospace;
         font-size: 1.15em;
         margin: 0;
     }

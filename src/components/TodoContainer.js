@@ -9,10 +9,10 @@ const base = new Airtable({ apiKey: process.env.REACT_APP_AIRTABLE_API_KEY}).bas
 export default function TodoContainer() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const newTodoList = [];
+
 
     base("Default").select({ view: "Grid view" }).eachPage(
       (records, fetchNextPage) => {
@@ -20,7 +20,13 @@ export default function TodoContainer() {
           newTodoList.push({
             id: record.id,
             title: record.get("title"),
-            category: record.get("category")});
+
+            // Need to retrieve all values from field
+            category: record.get("category"),
+            //category: record.get(["category"]),
+
+
+            });
         });
         fetchNextPage();
       },
@@ -33,19 +39,17 @@ export default function TodoContainer() {
         setIsLoading(false);
         localStorage.setItem("savedTodoList", JSON.stringify(newTodoList));
 
-        //value and label undefined
-        //   console.log(fetchedCategories);
-
-        // console.log(categories);
 
         //   it logs well, but categpry still undefined
-        //   console.log(newTodoList);
+          // console.log(newTodoList);
 
         //  Not defined
         //  console.log(category);
       }
     );
   }, []);
+
+
 
   function addTodo(newTodo) {
     base('Default').create(
